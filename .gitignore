@@ -95,6 +95,10 @@ temp/
 dist/
 build/
 
+# Production build
+*.min.js
+*.min.css
+
 # Environment files
 .env.local
 .env.development.local
