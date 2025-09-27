@@ -250,10 +250,6 @@ app.get('/api/stream/:infoHash/:fileIndex', (req, res) => {
       }
     });
     
-    stream.on('data', (chunk) => {
-      console.log(`Streamed ${chunk.length} bytes`);
-    });
-    
     stream.pipe(res);
   } else {
     // Stream entire file
@@ -268,10 +264,6 @@ app.get('/api/stream/:infoHash/:fileIndex', (req, res) => {
       if (!res.headersSent) {
         res.status(500).send('Stream error');
       }
-    });
-    
-    stream.on('data', (chunk) => {
-      console.log(`Streamed ${chunk.length} bytes`);
     });
     
     stream.pipe(res);
@@ -315,7 +307,7 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`TorBox server running on port ${PORT}`);
   console.log(`Open http://localhost:${PORT} to view the application`);
 });
