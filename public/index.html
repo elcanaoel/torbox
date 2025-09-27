@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TorBox - Torrent Streaming</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-play-circle"></i> TorBox</h1>
+            <p>Stream torrents directly from magnet links</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <input type="text" id="magnetInput" placeholder="Paste your magnet link here..." />
+                    <button id="parseBtn" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Parse Magnet
+                    </button>
+                </div>
+            </div>
+
+            <div id="recentVideos" class="recent-videos hidden">
+                <h3><i class="fas fa-history"></i> Recently Added Videos</h3>
+                <div id="recentVideosList" class="recent-videos-list"></div>
+                <button id="clearRecentBtn" class="btn btn-secondary btn-small">
+                    <i class="fas fa-trash"></i> Clear History
+                </button>
+            </div>
+
+            <div id="torrentInfo" class="torrent-info hidden">
+                <h3>Torrent Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Name:</label>
+                        <span id="torrentName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Size:</label>
+                        <span id="torrentSize">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Files:</label>
+                        <span id="torrentFiles">-</span>
+                    </div>
+                </div>
+                <button id="startDownloadBtn" class="btn btn-success">
+                    <i class="fas fa-play"></i> Start Streaming
+                </button>
+            </div>
+
+            <div id="downloadProgress" class="download-progress hidden">
+                <h3>Streaming Status</h3>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="progressText">0%</span>
+                    <span id="downloadSpeed">0 KB/s</span>
+                    <span id="timeRemaining">-</span>
+                </div>
+            </div>
+
+            <div id="fileList" class="file-list hidden">
+                <h3>Available Files</h3>
+                <div id="filesContainer" class="files-container"></div>
+            </div>
+
+            <div id="videoPlayer" class="video-player hidden">
+                <h3>Video Player</h3>
+                <video id="videoElement" controls preload="metadata">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="player-controls">
+                    <button id="playPauseBtn" class="btn btn-secondary">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                    <button id="fullscreenBtn" class="btn btn-secondary">
+                        <i class="fas fa-expand"></i> Fullscreen
+                    </button>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" />
+                        <span id="volumeDisplay">100%</span>
+                    </div>
+                    <button id="unmuteBtn" class="btn btn-secondary">
+                        <i class="fas fa-volume-mute"></i> Unmute
+                    </button>
+                    <button id="downloadBtn" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button id="testAudioBtn" class="btn btn-secondary">
+                        <i class="fas fa-music"></i> Test Audio
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-wifi"></i>
+                <span id="connectionStatus">Connecting...</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-database"></i>
+                <span id="activeTorrents">0 active torrents</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
